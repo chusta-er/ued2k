@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ued2k" />
+		<Option pch_mode="2" />
+		<Option compiler="arm-elf-gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/ued2k" prefix_auto="1" extension_auto="0" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="arm-elf-gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/ued2k" prefix_auto="1" extension_auto="0" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="arm-elf-gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="D:/boost_1_72_0_raspbian" />
+		</Compiler>
+		<Linker>
+			<Add library="pthread" />
+		</Linker>
+		<ExtraCommands>
+			<Add after="C:\msys64\usr\bin\scp.exe -p -P 1522 $(TARGET_OUTPUT_FILE) gus@whydah:~/$(TARGET_OUTPUT_BASENAME)" />
+			<Add after='C:\msys64\usr\bin\ssh -p 1522 gus@whydah &quot;chmod a+x ~/$(TARGET_OUTPUT_BASENAME)&quot;' />
+		</ExtraCommands>
+		<Unit filename="main.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
