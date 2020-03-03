@@ -30,14 +30,14 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="D:/boost_1_72_0_raspbian" />
+			<Add directory="$(BOOST_INSTALL_DIR)" />
 		</Compiler>
 		<Linker>
 			<Add library="pthread" />
 		</Linker>
 		<ExtraCommands>
-			<Add after="C:\msys64\usr\bin\scp.exe -p -P 1522 $(TARGET_OUTPUT_FILE) gus@whydah:~/$(TARGET_OUTPUT_BASENAME)" />
-			<Add after='C:\msys64\usr\bin\ssh -p 1522 gus@whydah &quot;chmod a+x ~/$(TARGET_OUTPUT_BASENAME)&quot;' />
+			<Add after="$(SSH_BIN_PATH)\scp.exe -P $(SSH_TEST_PORT) $(TARGET_OUTPUT_FILE) $(SSH_TEST_ACCOUNT)@$(SSH_TEST_HOST):~/$(TARGET_OUTPUT_BASENAME)" />
+			<Add after='$(SSH_BIN_PATH)\ssh -p $(SSH_TEST_PORT) $(SSH_TEST_ACCOUNT)@$(SSH_TEST_HOST) &quot;chmod a+x ~/$(TARGET_OUTPUT_BASENAME)&quot;' />
 		</ExtraCommands>
 		<Unit filename="main.cpp" />
 		<Extensions>
