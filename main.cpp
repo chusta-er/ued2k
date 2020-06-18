@@ -1,8 +1,9 @@
 #include <iostream>
-#include <boost/array.hpp>
+#include <array>
 #include <boost/asio.hpp>
 
 using namespace boost;
+using namespace boost::system;
 using namespace boost::asio;
 using namespace boost::asio::ip;
 using namespace std;
@@ -12,7 +13,7 @@ int main( int argc, char* argv[] )
     try {
         if ( argc != 3  )
            {
-           cerr << "Usage: ued2k <host> <query>" << std::endl;
+           cerr << "Usage: ued2k <host> <query>" << endl;
            return 1;
            }
 
@@ -43,17 +44,24 @@ int main( int argc, char* argv[] )
 
         // socket.send();
 
-        for (;;)
+        for ( bool loop = true; loop; )
             {
-            boost::array<char, 128> buf;
-            system::error_code      error;
+            std::array<char, 128> buf;
+            system::error_code    error;
 
             size_t len = socket.read_some(buffer(buf), error);
 
-            if ( error == error::eof )
-               break; // Connection closed cleanly by peer.
-            else if ( error )
-                 throw system::system_error(error); // Some other error.
+            switch ( error.value() )
+                   {
+                   case errc::success:
+                        break;
+                   case error::eof:
+                        // Connection closed gracefully by peer.
+                        loop = false;
+                        continue;
+                   default:
+                        throw system::system_error(error); // Some other error.
+                   }
 
             cout.write(buf.data(), len);
             }
