@@ -30,6 +30,7 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-std=c++17" />
 			<Add directory="$(BOOST_INSTALL_DIR)" />
 		</Compiler>
 		<Linker>
@@ -40,10 +41,6 @@
 			<Add after='$(SSH_BIN_PATH)\ssh -p $(SSH_TEST_PORT) $(SSH_TEST_ACCOUNT)@$(SSH_TEST_HOST) &quot;chmod a+x ~/$(TARGET_OUTPUT_BASENAME)&quot;' />
 		</ExtraCommands>
 		<Unit filename="main.cpp" />
-		<Extensions>
-			<code_completion />
-			<envvars />
-			<debugger />
-		</Extensions>
+		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
